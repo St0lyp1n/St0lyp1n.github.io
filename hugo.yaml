@@ -1,0 +1,139 @@
+baseURL: https://example.org/
+copyright: "[©2026 Stolypin's Blog](https://St0lyp1n.github.io/)" # 网站的版权声明，通常显示在页脚
+title: Stolypin 的博客
+theme: PaperMod
+languageCode: zh-cn # 语言
+
+enableInlineShortcodes: true # shortcode，类似于模板变量，可以在写 markdown 的时候便捷地插入，官方文档中有一个视频讲的很通俗
+hasCJKLanguage: true # 是否有 CJK 的字符
+enableRobotsTXT: true # 允许生成 robots.txt
+buildDrafts: false # 构建时是否包括草稿
+buildFuture: false # 构建未来发布的内容
+buildExpired: false # 构建过期的内容
+enableEmoji: true # 允许 emoji
+pygmentsUseClasses: true
+defaultContentLanguage: zh # 顶部首先展示的语言界面
+defaultContentLanguageInSubdir: false # 是否要在地址栏加上默认的语言代码
+
+languages:
+  zh:
+    languageName: "中文" # 展示的语言名
+    weight: 1 # 权重
+    taxonomies: # 分类系统
+      category: categories
+      tag: tags
+    # https://gohugo.io/content-management/menus/#define-in-site-configuration
+    menus:
+      main:
+        - name: 首页
+          pageRef: /
+          weight: 4 # 控制在页面上展示的前后顺序
+        - name: 归档
+          pageRef: archives/
+          weight: 5
+        - name: 分类
+          pageRef: categories/
+          weight: 10
+        - name: 标签
+          pageRef: tags/
+          weight: 10
+        - name: 搜索
+          pageRef: search/
+          weight: 20
+        - name: 关于
+          pageRef: about/
+          weight: 21
+
+# 主题配置
+
+paginate: 8 # 每页显示的文章数
+
+params:
+  env: production
+  description: "Theme PaperMod - https://github.com/adityatelange/hugo-PaperMod"
+  author: Stolypin
+  defaultTheme: dark
+  ShowShareButtons: false
+  ShowReadingTime: true
+  displayFullLangName: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: false
+  ShowCodeCopyButtons: true
+  ShowRssButtonInSectionTermList: true
+  ShowAllPagesINArchive: true
+  ShowPageNums: true
+  ShowToc: true
+  comments: true
+
+
+  # 首页内容
+  homeInfoParams:
+    title: "Good Day to You 🌹"
+    Content:
+      记录一些学习心得。
+      <br>
+      博客搭建参考：
+      https://sonnycalcr.github.io/posts/build-a-blog-using-hugo-papermod-github-pages/
+      <br>
+    #社交账号按钮
+  socialIcons:
+      - name: "Github"
+        title: Follow My Github
+        url: "https://github.com/St0lyp1n"
+      - name: X
+        title: Follow My X
+        url: "https://twitter.com/Stolyp1n"
+      - name: Bilibili
+        title: Follow My Bilibili
+        url: "https://space.bilibili.com/238211337"
+  fuseOpts:
+      isCaseSensitive: false # 大小写敏感
+      shouldSort: true # 排序
+      location: 0
+      distance: 1000
+      threshold: 0.4
+      minMatchCharlength: 0
+      # limit: 10 # refer: https://www.fusejs.io/api/methods.html#search
+      keys: ["title", "permalink", "summary", "content"]
+      includeMatches: true
+  assets: 
+      # 标签页图标
+      favicon: "favicon.png"
+      favicon16x16: "favicon.png"
+      favicon32x32: "favicon.png"
+      apple_touch_icon: "favicon.png"
+      safari_pinned_tab: "favicon.png"
+      disableHLJS: true
+
+  # 评论设置
+  giscus:
+    repo: "St0lyp1n/St0lyp1n.github.io"
+    repoId: "R_kgDOSXpaKQ"
+    category: "Announcements"
+    categoryId: "DIC_kwDOSXpaKc4C8k14"
+    mapping: "pathname"
+    strict: "0"
+    reactionsEnabled: "1"
+    emitMetadata: "0"
+    inputPosition: "bottom"
+    lightTheme: "light"
+    darkTheme: "dark"
+    lang: "zh-CN"
+    crossorigin: "anonymous"
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # 可以 unsafe，有些 html 标签和样式可能需要
+  highlight:
+    anchorLineNos: false # 不要给行号设置锚标
+    codeFences: true # 代码围栏
+    noClasses: false # TODO: 不知道干啥的，暂时没必要了解，不影响展示
+    lineNos: true # 代码行
+    lineNumbersInTable: false # 不要设置成 true，否则如果文章开头是代码的话，摘要会由一大堆数字(即代码行号)开头文章
