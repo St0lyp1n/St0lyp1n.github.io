@@ -3,6 +3,7 @@ date = '2026-05-06T13:50:08+08:00'
 title = 'Hello World'
 categories = ["Test"]
 tags = ["博客搭建"]
+math = true
 +++
 
 Test

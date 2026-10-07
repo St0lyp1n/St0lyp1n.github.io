@@ -1,0 +1,2 @@
+{{- $items := slice -}}{{- range .Site.RegularPages -}}{{- $items = $items | append (dict "title" .Title "url" .RelPermalink "content" .Plain "description" (.Description | default (.Summary | plainify)) "tags" .Params.tags "kind" .Section "date" (.Date.Format "2006.01.02")) -}}{{- end -}}{{- range hugo.Data.garden.notes -}}{{- $items = $items | append (dict "title" .title "url" (printf "/notes/#%s" .id) "content" .text "description" .text "tags" (slice .tag) "kind" "notes" "date" .date) -}}{{- end -}}{{- $items | jsonify -}}
+

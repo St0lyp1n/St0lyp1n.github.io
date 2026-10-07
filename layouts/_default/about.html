@@ -1,17 +1,4 @@
-{{- define "main" }}
- 
-<header class="page-header">
-    <h1>{{ .Title }}</h1>
-    {{- if .Description }}
-    <div class="post-description">
-      {{ .Description }}
-    </div>
-    {{- end }}
-  </header>
- 
-<section>
-  <br>
-  {{ .Content }}
-</section>
- 
-{{- end }}{{/* end main */}}
+{{ define "main" }}
+<div class="about-hero"><div class="page-intro"><div class="eyebrow">A PERSON BEHIND THE PIXELS</div><h1>很高兴，在这里遇见你。</h1><p>在代码与文字之间，保持好奇，缓慢生长。</p></div><img class="about-avatar" src="/images/avatar.png" alt="Stolypin 的 GitHub 头像" width="120" height="120"></div>
+<div class="about-columns"><div class="prose">{{ .Content }}</div><aside class="about-facts"><h3>保持连接</h3><p>喜欢开放的互联网，也喜欢认真做事的小角落。</p><a href="https://github.com/St0lyp1n" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="https://twitter.com/Stolyp1n" target="_blank" rel="noopener noreferrer">X / Twitter ↗</a><a href="https://space.bilibili.com/238211337" target="_blank" rel="noopener noreferrer">Bilibili ↗</a><a href="/index.xml">RSS 订阅 ↗</a><a href="/colophon/">关于本站 ↗</a></aside></div>
+{{ end }}
