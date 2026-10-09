@@ -1,26 +1,9 @@
 {{ define "main" }}
-<div class="page-intro"><div class="eyebrow">{{ .Params.eyebrow }}</div><h1>{{ .Params.headline | default .Title }}</h1><p>{{ .Description }}</p>{{ if .Params.demo }}<span class="demo-notice">演示内容 · 用来展示这个角落的可能性</span>{{ end }}</div>
-{{ $kind := .Params.pageKind }}
-{{ if eq $kind "notes" }}<div class="filter-row"><button class="filter-chip active" data-note-filter="all" aria-pressed="true">全部随记</button>{{ range slice "日常" "技术" "设计" "阅读" }}<button class="filter-chip" data-note-filter="{{ . }}" aria-pressed="false">{{ . }}</button>{{ end }}</div><div class="notes-list">{{ range hugo.Data.garden.notes }}<article class="note-card" id="{{ .id }}" data-tag="{{ .tag }}"><time>{{ .date }}</time><h2>{{ .title }}</h2><p>{{ .text }}</p><div class="note-card-bottom"><span># {{ .tag }}</span><a href="#{{ .id }}" aria-label="{{ .title }}的永久链接">↗</a></div></article>{{ end }}</div>
-{{ else if eq $kind "projects" }}<div class="project-grid">{{ range hugo.Data.garden.projects }}{{ partial "project-card.html" . }}{{ end }}</div><div class="page-bottom-note">这些小工具都可以在本站打开体验。花园本身的源码也在 <a href="https://github.com/St0lyp1n/St0lyp1n.github.io" target="_blank" rel="noopener noreferrer">GitHub ↗</a></div>
-{{ else if eq $kind "library" }}<div class="filter-row" style="margin-bottom:25px"><button class="filter-chip active" data-book-filter="all" aria-pressed="true">全部书籍</button><button class="filter-chip" data-book-filter="在读" aria-pressed="false">在读</button><button class="filter-chip" data-book-filter="读过" aria-pressed="false">读过</button><button class="filter-chip" data-book-filter="想读" aria-pressed="false">想读</button></div><div class="book-grid">{{ range hugo.Data.garden.books }}<article class="book-card" data-status="{{ .status }}"><div class="book-spine" style="--cover:{{ .color }}"><small>THE READING ROOM</small><span>{{ .title }}</span><small>{{ .author }}</small></div><div><span class="book-status">{{ .status }}</span><h2>{{ .title }}</h2><span class="book-author">{{ .author }}</span><p>{{ .description }}</p><details><summary>展开阅读札记</summary><p>{{ .note }}</p></details></div></article>{{ end }}</div>
-{{ else if eq $kind "gallery" }}<div class="gallery-grid">{{ range hugo.Data.garden.photos }}<figure class="gallery-item"><button class="photo-button" data-photo="{{ .src }}" data-caption="{{ .title }} · {{ .credit }}" aria-label="放大照片：{{ .title }}"><img src="{{ .src }}" alt="{{ .alt }}" loading="lazy" width="800" height="600"></button><figcaption><span>{{ .title }}</span><a href="{{ .source }}" target="_blank" rel="noopener noreferrer">{{ .credit }} ↗</a></figcaption></figure>{{ end }}</div><p class="page-bottom-note">演示照片来自 Unsplash，非博主本人拍摄。点击照片可放大，点击署名可查看来源。</p>
-{{ else if eq $kind "links" }}<div class="links-grid">{{ range hugo.Data.garden.links }}<a class="friend-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer"><span class="friend-initial">{{ .initial }}</span><div><h2>{{ .name }}</h2><p>{{ .description }}</p></div><span>↗</span></a>{{ end }}</div><div class="end-note"><span>⌘</span><p>互联网很大，喜欢的小角落很近。<br><small>这里是本次设计参考与值得探索的网站，不代表已互换友链。</small></p></div><button class="button" data-action="copy-site">复制本站信息</button>
-{{ else if eq $kind "bookmarks" }}<div class="bookmarks-toolbar"><span>仅保存在当前浏览器，不会上传或跨设备同步。</span><button class="button" data-action="export-bookmarks">导出收藏 ↓</button></div><div id="saved-list"></div><noscript><p>收藏功能需要启用 JavaScript。</p></noscript>
-{{ else if eq $kind "archives" }}{{ range (where .Site.RegularPages "Section" "posts").GroupByDate "2006" }}<section><h2 class="archive-year">{{ .Key }}<small> / {{ len .Pages }} 篇</small></h2>{{ range .Pages }}<a class="archive-row" href="{{ .RelPermalink }}"><time>{{ .Date.Format "01.02" }}</time><span>{{ .Title }}</span><span class="category">{{ index .Params.categories 0 }}</span></a>{{ end }}</section>{{ end }}<p class="page-bottom-note"><a href="/tags/">按标签探索 ↗</a> · <a href="/categories/">按分类探索 ↗</a></p>
-{{ else if eq $kind "lab" }}<div class="lab-grid"><section class="lab-card" id="focus"><div class="eyebrow">01 / FOCUS</div><h2>留一段专注的时间</h2><p>把注意力还给眼前的小事。</p><div class="timer-modes"><button class="filter-chip active" data-minutes="25" aria-pressed="true">专注 25 分钟</button><button class="filter-chip" data-minutes="5" aria-pressed="false">休息 5 分钟</button></div><div id="timer" class="timer-digits" role="timer" aria-label="剩余时间">25:00</div><div class="timer-controls"><button class="button primary" id="timer-start">开始专注</button><button class="button" id="timer-reset">重置</button></div><small class="lab-note" id="timer-message">准备好了，就开始吧。离开或刷新页面会重置计时。</small></section><section class="lab-card" id="colors"><div class="eyebrow">02 / PALETTE</div><h2>从自然里借一点颜色</h2><p>山林、海风和旧书页，都有自己的色谱。</p><div id="palette" class="color-palette"></div><div class="timer-controls"><button class="button" id="new-palette">换一组配色 ↻</button></div><small class="lab-note">点击任意色块，复制 HEX 色值。</small></section><section class="lab-card lab-wide" id="markdown"><div class="lab-row"><div><div class="eyebrow">03 / SCRATCHPAD</div><h2>想法的草稿纸</h2></div><button class="button" id="download-markdown">下载 .md ↓</button></div><p>支持标题、列表、引用、粗体、行内代码和代码块。草稿仅保存在当前浏览器。</p><div class="markdown-editor"><label><span class="eyebrow">MARKDOWN</span><textarea id="markdown-input" aria-label="Markdown 草稿" spellcheck="false"># 今天的小发现
-
-写一点，想一点。
-
-## 想做的事
-- 给自己留一点空白
-- 读一篇好文章
-- 完成一个小作品
-
-> 保持好奇，缓慢生长。
-
-用 **文字** 留住一个想法。</textarea></label><div><span class="eyebrow">PREVIEW</span><div id="markdown-preview" class="markdown-preview" aria-label="Markdown 预览"></div></div></div></section><section class="lab-card lab-wide"><div class="eyebrow">04 / TERMINAL</div><h2>换一种方式逛花园</h2><button class="terminal-launch" data-action="terminal"><span>stolypin@garden ~</span><br>❯ help<span> _</span><br>点击打开交互终端 →</button><small class="lab-note">全站可按 ` 打开。支持导航、随机文章、主题切换与命令历史。</small></section></div>
-{{ else if eq $kind "now" }}<div class="prose standalone">{{ .Content }}</div>
-{{ else }}<div class="prose standalone">{{ .Content }}</div>{{ end }}
+  {{ partial "page-heading.html" . }}
+  {{ $view := printf "pages/%s.html" (.Params.pageKind | default "default") }}
+  {{ if templates.Exists (printf "partials/%s" $view) }}
+    {{ partial $view . }}
+  {{ else }}
+    <div class="prose standalone">{{ .Content }}</div>
+  {{ end }}
 {{ end }}
-

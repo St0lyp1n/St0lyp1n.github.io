@@ -1,0 +1,21 @@
+<div class="gallery-grid">
+  {{ range hugo.Data.garden.photos }}
+    <figure class="gallery-item">
+      <button
+        class="photo-button"
+        data-photo="{{ .src }}"
+        data-caption="{{ .title }} · {{ .credit }}"
+        aria-label="放大照片：{{ .title }}"
+      >
+        <img src="{{ .src }}" alt="{{ .alt }}" loading="lazy" width="800" height="600" />
+      </button>
+      <figcaption>
+        <span>{{ .title }}</span
+        ><a href="{{ .source }}" target="_blank" rel="noopener noreferrer">{{ .credit }} ↗</a>
+      </figcaption>
+    </figure>
+  {{ end }}
+</div>
+<p class="page-bottom-note">
+  演示照片来自 Unsplash，非博主本人拍摄。点击照片可放大，点击署名可查看来源。
+</p>

@@ -1,36 +1,17 @@
 <!doctype html>
 <html lang="zh-CN">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ if not .IsHome }}{{ .Title }} · {{ end }}{{ .Site.Title }}</title>
-<meta name="description" content="{{ .Description | default .Summary | default .Site.Params.description | plainify | truncate 160 }}">
-<meta name="theme-color" content="#f7f8f3"><link rel="canonical" href="{{ .Permalink }}">
-<meta property="og:title" content="{{ .Title }}"><meta property="og:description" content="{{ .Description | default .Site.Params.description }}"><meta property="og:url" content="{{ .Permalink }}"><meta property="og:type" content="{{ if eq .Section "posts" }}article{{ else }}website{{ end }}">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="alternate" type="application/rss+xml" title="Stolypin 的文章" href="/index.xml">
-<script>try{document.documentElement.dataset.theme=localStorage.getItem('garden-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}catch(e){}</script>
-{{ $css := resources.Get "css/garden.css" | minify | fingerprint }}<link rel="stylesheet" href="{{ $css.RelPermalink }}">
-{{ $js := resources.Get "js/garden.js" | minify | fingerprint }}<script defer src="{{ $js.RelPermalink }}"></script>
-{{ if .Params.math }}<script>window.MathJax={tex:{inlineMath:[['$','$'],['\\(','\\)']]},options:{skipHtmlTags:['script','noscript','style','textarea','pre','code']}};</script><script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>{{ end }}
-</head>
-<body data-page="{{ .Params.pageKind | default .Section }}">
-<a class="skip-link" href="#main">跳至正文</a><div class="reading-progress" aria-hidden="true"></div>
-<aside class="sidebar" id="sidebar" aria-label="侧边导航">
-<a class="brand" href="/" aria-label="Stolypin 首页"><span class="brand-mark">s.</span><span>Stolypin<span class="brand-sub">A DIGITAL GARDEN</span></span></a>
-<div class="nav-label">在这里，慢慢探索</div><nav class="nav-list">
-{{ $page := . }}{{ range slice (dict "url" "/" "label" "首页" "en" "Home" "icon" "home") (dict "url" "/posts/" "label" "文章" "en" "Writing" "icon" "pen") (dict "url" "/notes/" "label" "随记" "en" "Notes" "icon" "note") (dict "url" "/projects/" "label" "项目" "en" "Projects" "icon" "grid") (dict "url" "/library/" "label" "书架" "en" "Bookshelf" "icon" "book") (dict "url" "/gallery/" "label" "光影" "en" "Moments" "icon" "camera") (dict "url" "/links/" "label" "友邻" "en" "Friends" "icon" "link") (dict "url" "/about/" "label" "关于" "en" "About" "icon" "user") }}
-{{ $active := or (and (eq .url "/") $page.IsHome) (and (ne .url "/") (hasPrefix $page.RelPermalink .url)) }}
-<a href="{{ .url }}" class="nav-item {{ if $active }}active{{ end }}" {{ if $active }}aria-current="page"{{ end }}>{{ partial "icon.html" .icon }}<span>{{ .label }}</span><span class="nav-en">{{ .en }}</span>{{ if eq .url "/posts/" }}<span class="nav-count">{{ len (where $page.Site.RegularPages "Section" "posts") }}</span>{{ end }}</a>{{ end }}
-</nav><div class="sidebar-divider"></div>
-<a href="/lab/" class="nav-item {{ if eq .Params.pageKind "lab" }}active{{ end }}">{{ partial "icon.html" "spark" }}<span>实验室</span><span class="tiny-label">PLAY</span></a>
-<a href="/bookmarks/" class="nav-item {{ if eq .Params.pageKind "bookmarks" }}active{{ end }}">{{ partial "icon.html" "bookmark" }}<span>阅读收藏</span><span class="bookmark-count nav-count">0</span></a>
-<a href="/archives/" class="nav-item">{{ partial "icon.html" "clock" }}<span>时光归档</span></a>
-<div class="sidebar-bottom"><a class="status-card" href="/now/"><span class="status-dot"></span><span>此刻，正在生长<small>看看最近在做什么 ↗</small></span></a><div class="sidebar-tools"><a href="{{ .Site.Params.github }}" target="_blank" rel="noopener noreferrer" aria-label="GitHub">{{ partial "icon.html" "github" }}</a><a href="/index.xml" aria-label="RSS 订阅">{{ partial "icon.html" "rss" }}</a><button data-action="terminal" aria-label="打开交互终端">{{ partial "icon.html" "terminal" }}</button><button data-action="theme" aria-label="切换深浅色主题">{{ partial "icon.html" "sun" }}</button></div><div class="sidebar-caption">Made with curiosity <span>✳</span></div></div>
-</aside><button class="sidebar-scrim" data-action="menu" aria-label="关闭导航" tabindex="-1"></button>
-<div class="site-shell"><header class="topbar"><div class="breadcrumb"><button class="mobile-menu icon-button" data-action="menu" aria-label="打开导航" aria-expanded="false" aria-controls="sidebar">{{ partial "icon.html" "menu" }}</button><span class="breadcrumb-home">Stolypin 的数字花园</span><span class="slash">/</span><span>{{ if .IsHome }}首页{{ else }}{{ .Title }}{{ end }}</span></div><button class="search-trigger" data-action="search">{{ partial "icon.html" "search" }}<span>搜索这个小宇宙</span><kbd>Ctrl K</kbd></button></header>
-<main id="main" tabindex="-1">{{ block "main" . }}{{ end }}</main><footer class="footer"><div><a href="/">Stolypin.</a><span>记录，是对时间最温柔的抵抗。</span></div><div><span>© {{ now.Year }} · 用 Hugo 栽种</span><a href="/colophon/">关于本站 ↗</a><a href="/index.xml">RSS ↗</a></div></footer></div>
-<button class="back-top icon-button" data-action="top" aria-label="回到顶部">↑</button>
-<dialog id="search-dialog" class="search-dialog" aria-label="全站搜索"><div class="dialog-top">{{ partial "icon.html" "search" }}<input id="search-input" type="search" placeholder="搜索文章、标签、随记…" aria-label="搜索文章、标签、随记" autocomplete="off"><button class="icon-button" data-close aria-label="关闭搜索">×</button></div><div id="search-results" class="search-results" aria-live="polite"></div><div class="dialog-footer"><span>↑ ↓ 选择 · Enter 打开</span><span>Esc 关闭</span></div></dialog>
-<dialog id="terminal-dialog" class="terminal-dialog" aria-label="交互终端"><div class="terminal-top"><span>● ● ●</span>stolypin@garden: ~<button data-close class="icon-button" aria-label="关闭终端">×</button></div><div id="terminal-output" role="log"><p>Welcome to the garden. 输入 help 开始探索。</p></div><form id="terminal-form"><label for="terminal-input">❯</label><input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="终端命令"></form></dialog>
-<dialog id="photo-dialog" class="photo-dialog" aria-label="照片预览"><button class="icon-button" data-close aria-label="关闭照片">×</button><img alt=""><p></p></dialog><div id="toast" class="toast" role="status"></div>
-</body></html>
-
+  {{ partial "shell/head.html" . }}
+  <body data-page="{{ .Params.pageKind | default .Section }}">
+    <a class="skip-link" href="#main">跳至正文</a>
+    <div class="reading-progress" aria-hidden="true"></div>
+    {{ partial "shell/sidebar.html" . }}
+    <div class="site-shell">
+      {{ partial "shell/topbar.html" . }}
+      <main id="main" tabindex="-1">{{ block "main" . }}{{ end }}</main>
+      {{ partial "shell/footer.html" . }}
+    </div>
+    <button class="back-top icon-button" data-action="top" aria-label="回到顶部">↑</button>
+    {{ partial "shell/dialogs.html" . }}
+    <div id="toast" class="toast" role="status"></div>
+  </body>
+</html>

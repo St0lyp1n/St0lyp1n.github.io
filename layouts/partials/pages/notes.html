@@ -1,0 +1,18 @@
+<div class="filter-row">
+  <button class="filter-chip active" data-note-filter="all" aria-pressed="true">全部随记</button
+  >{{ range slice "日常" "技术" "设计" "阅读" }}
+    <button class="filter-chip" data-note-filter="{{ . }}" aria-pressed="false">{{ . }}</button>
+  {{ end }}
+</div>
+<div class="notes-list">
+  {{ range hugo.Data.garden.notes }}
+    <article class="note-card" id="{{ .id }}" data-tag="{{ .tag }}">
+      <time>{{ .date }}</time>
+      <h2>{{ .title }}</h2>
+      <p>{{ .text }}</p>
+      <div class="note-card-bottom">
+        <span># {{ .tag }}</span><a href="#{{ .id }}" aria-label="{{ .title }}的永久链接">↗</a>
+      </div>
+    </article>
+  {{ end }}
+</div>

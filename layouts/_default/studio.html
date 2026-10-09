@@ -1,0 +1,207 @@
+{{ define "main" }}
+  <section class="studio" id="studio" aria-label="Markdown 写作台">
+    <header class="studio-heading">
+      <div>
+        <div class="eyebrow">YOUR WRITING SPACE</div>
+        <h1>想法，就从这里写下。</h1>
+        <p>拖入 Markdown 文件，边写边看。</p>
+      </div>
+      <button class="button" id="studio-help">使用说明 {{ partial "icon.html" "book" }}</button>
+    </header>
+    <div class="studio-notice">
+      <span class="status-dot"></span
+      ><span>本地写作空间 · 草稿只存在这个浏览器，不会自动发布到博客。</span
+      ><button id="backup-all">备份全部 ↓</button
+      ><label class="text-upload"
+        >恢复备份<input id="backup-input" type="file" accept=".json" hidden
+      /></label>
+    </div>
+    <div id="studio-alert" class="studio-alert" role="alert" hidden></div>
+    <div class="studio-layout">
+      <aside class="draft-panel" aria-label="草稿管理">
+        <div class="draft-panel-header">
+          <h2>我的草稿 <span id="draft-count">0</span></h2>
+          <button id="new-draft" class="icon-button" aria-label="新建草稿" title="新建草稿">
+            ＋
+          </button>
+        </div>
+        <label
+          class="drop-zone"
+          id="drop-zone"
+          tabindex="0"
+          role="button"
+          aria-label="选择或拖入 Markdown 文件"
+          ><span class="drop-icon">↓</span><strong>拖入 .md 文件</strong
+          ><span>或点击选择 · 支持多文件</span><small>UTF-8 · 单个文件最大 2 MB</small
+          ><input
+            id="markdown-files"
+            type="file"
+            accept=".md,.markdown,text/markdown"
+            multiple
+            hidden
+        /></label>
+        <label class="draft-search"
+          >{{ partial "icon.html" "search" }}<input
+            id="draft-search"
+            type="search"
+            placeholder="查找草稿"
+            aria-label="查找草稿"
+        /></label>
+        <div id="draft-list" class="draft-list"></div>
+        <div class="draft-panel-footer">
+          <button id="import-example">试一篇示例文章 ↗</button><span>拖入后原文件保持不变</span>
+        </div>
+      </aside>
+      <section class="editor-workspace" aria-label="文章编辑">
+        <div class="editor-topbar">
+          <div id="save-status" role="status">
+            <span class="status-dot"></span><span>准备就绪</span>
+          </div>
+          <div>
+            <button class="button" id="duplicate-draft" title="复制当前草稿">创建副本</button
+            ><button class="button primary" id="export-article">导出 Markdown ↓</button>
+          </div>
+        </div>
+        <div class="editor-metadata">
+          <label class="title-field"
+            ><span>文章标题</span
+            ><input
+              id="article-title"
+              placeholder="给这篇文章起个名字…"
+              maxlength="200"
+              autocomplete="off"
+          /></label>
+          <label class="description-field"
+            ><span>一句话简介 <small>可选</small></span
+            ><input
+              id="article-description"
+              placeholder="读者会在文章列表中看到这句话"
+              maxlength="500"
+          /></label>
+          <details id="article-properties" class="article-properties">
+            <summary>
+              文章信息 <span id="metadata-summary"></span><span class="details-chevron">⌄</span>
+            </summary>
+            <div class="metadata-grid">
+              <label
+                >文件名<input id="article-slug" placeholder="my-first-note" maxlength="80" /><small
+                  >导出为 <span id="filename-hint">untitled.md</span></small
+                ></label
+              ><label>文章日期<input id="article-date" type="date" /></label
+              ><label>分类<input id="article-categories" placeholder="技术、生活" /></label
+              ><label
+                >标签<input id="article-tags" placeholder="Hugo、笔记" /><small
+                  >使用逗号或顿号分隔</small
+                ></label
+              ><label class="draft-toggle"
+                ><input id="article-draft" type="checkbox" checked /><span
+                  >导出为草稿<small>取消勾选后，Hugo 才会将文章纳入正式构建。</small></span
+                ></label
+              >
+              <div id="extra-fields-note"></div>
+            </div>
+          </details>
+        </div>
+        <div class="editor-viewbar">
+          <div class="segmented" role="group" aria-label="编辑视图">
+            <button data-editor-view="split" class="active" aria-pressed="true">双栏</button
+            ><button data-editor-view="edit" aria-pressed="false">只编辑</button
+            ><button data-editor-view="preview" aria-pressed="false">只预览</button>
+          </div>
+          <div class="preview-options">
+            <label><input id="sync-scroll" type="checkbox" checked /> 同步滚动</label
+            ><button id="preview-device" aria-pressed="false" title="模拟手机阅读宽度">
+              手机预览</button
+            ><button id="editor-focus" aria-pressed="false">专注</button>
+          </div>
+        </div>
+        <div class="markdown-toolbar" role="toolbar" aria-label="Markdown 格式">
+          <button data-insert="heading" title="二级标题">H₂</button
+          ><button data-insert="bold" title="加粗 Ctrl+B"><strong>B</strong></button
+          ><button data-insert="italic" title="斜体 Ctrl+I"><em>I</em></button><span></span
+          ><button data-insert="link" title="插入链接">链接</button
+          ><button data-insert="quote" title="引用">引用</button
+          ><button data-insert="list" title="无序列表">列表</button
+          ><button data-insert="task" title="任务清单">☑</button
+          ><button data-insert="code" title="代码块">&lt;/&gt;</button
+          ><button data-insert="table" title="表格">表格</button><span></span
+          ><button id="editor-undo" title="撤销 Ctrl+Z">↶</button
+          ><button id="editor-redo" title="重做 Ctrl+Shift+Z">↷</button>
+        </div>
+        <div class="editor-panes" data-view="split">
+          <div class="source-pane">
+            <div class="pane-label">MARKDOWN <span>支持粘贴或拖入文件</span></div>
+            <textarea
+              id="article-body"
+              aria-label="Markdown 正文"
+              spellcheck="false"
+              placeholder="从一句话开始…&#10;&#10;支持 # 标题、**加粗**、列表、表格与代码块。"
+            ></textarea>
+          </div>
+          <section class="preview-pane" aria-label="实时文章预览">
+            <div class="pane-label">实时预览 <span id="preview-reading-time">0 分钟</span></div>
+            <div class="preview-scroll">
+              <article class="prose studio-preview" id="article-preview"></article>
+            </div>
+          </section>
+        </div>
+        <footer class="editor-statusbar">
+          <span id="word-count">0 字</span><span id="cursor-position">行 1，列 1</span
+          ><span class="status-shortcut">Ctrl / ⌘ + S 导出</span
+          ><button id="delete-draft">删除这篇草稿</button>
+        </footer>
+      </section>
+    </div>
+  </section>
+  <dialog id="studio-help-dialog" class="studio-help-dialog" aria-labelledby="studio-help-title">
+    <div class="dialog-top">
+      <h2 id="studio-help-title">从文件，到一篇文章</h2>
+      <button class="icon-button" data-close aria-label="关闭说明">×</button>
+    </div>
+    <div class="help-content">
+      <ol>
+        <li>
+          <strong>拖入 Markdown</strong>
+          <p>
+            支持普通 Markdown、YAML 与 TOML 文章信息。多文件逐个导入，同名文件会保留为独立草稿。
+          </p>
+        </li>
+        <li>
+          <strong>边写边看</strong>
+          <p>
+            修改标题和文章信息，在双栏中编辑正文。支持表格、任务清单、代码块与格式工具栏。预览会清理危险
+            HTML，外部图片显示占位说明。
+          </p>
+        </li>
+        <li>
+          <strong>导出，再发布</strong>
+          <p>
+            点击“导出 Markdown”，将文件放入博客项目的
+            <code>content/posts/</code>。确认取消“导出为草稿”，再提交到
+            GitHub，站点就会自动更新。此页面不会直接写入仓库。
+          </p>
+        </li>
+      </ol>
+      <div class="help-callout">
+        自动保存仅限当前浏览器。请定期“备份全部”，尤其在清理浏览器数据或更换设备之前。页面会提示保存失败，此时请立即导出。
+      </div>
+      <p>
+        原文中的额外文章字段会保留。预览使用 Markdown 渲染，Hugo
+        短代码和数学公式需在站点构建后查看最终效果；本地相对图片不会随 Markdown 自动上传。
+      </p>
+    </div>
+  </dialog>
+  <dialog id="studio-confirm-dialog" class="confirm-dialog" aria-labelledby="confirm-title">
+    <h2 id="confirm-title">删除这篇草稿？</h2>
+    <p id="confirm-message"></p>
+    <div>
+      <button class="button" id="cancel-delete">保留草稿</button
+      ><button class="button danger" id="confirm-delete">删除草稿</button>
+    </div>
+  </dialog>
+  <noscript
+    ><p class="empty-state">
+      写作台需要 JavaScript。你仍然可以直接编辑 content/posts/ 中的 Markdown 文件。
+    </p></noscript
+  >
+{{ end }}

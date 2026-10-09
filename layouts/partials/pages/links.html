@@ -1,0 +1,21 @@
+<div class="links-grid">
+  {{ range hugo.Data.garden.links }}
+    <a class="friend-card" href="{{ .url }}" target="_blank" rel="noopener noreferrer"
+      ><span class="friend-initial">{{ .initial }}</span>
+      <div>
+        <h2>{{ .name }}</h2>
+        <p>{{ .description }}</p>
+      </div>
+      <span>↗</span></a
+    >
+  {{ end }}
+</div>
+<div class="end-note">
+  <span>⌘</span>
+  <p>
+    互联网很大，喜欢的小角落很近。<br /><small
+      >这里是本次设计参考与值得探索的网站，不代表已互换友链。</small
+    >
+  </p>
+</div>
+<button class="button" data-action="copy-site">复制本站信息</button>

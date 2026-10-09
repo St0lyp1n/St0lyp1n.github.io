@@ -1,0 +1,17 @@
+<div class="discovery-grid">
+  {{ range slice (dict "url" "/library/" "title" "书架" "description" "读过的、在读的，还有期待相遇的文字。" "icon" "book" "action" "翻翻书页") (dict "url" "/gallery/" "title" "光影" "description" "山林与晨雾，给目光一个可以停留的地方。" "icon" "camera" "action" "看看照片") (dict "url" "/links/" "title" "友邻" "description" "走出这片花园，拜访几个喜欢的网站。" "icon" "link" "action" "串个门") (dict "url" "/archives/" "title" "时光归档" "description" "沿着时间，重新发现曾经写下的想法。" "icon" "clock" "action" "翻阅归档") (dict "url" "/tags/" "title" "主题标签" "description" "从一个关键词出发，找到相关的文章。" "icon" "note" "action" "找个话题") (dict "url" "/now/" "title" "此刻" "description" "一点近况，一些正在生长的小事。" "icon" "user" "action" "最近怎样") }}
+    <a href="{{ .url }}" class="discovery-card"
+      >{{ partial "icon.html" .icon }}
+      <h2>{{ .title }}</h2>
+      <p>{{ .description }}</p>
+      <span>{{ .action }} →</span></a
+    >
+  {{ end }}
+</div>
+<div class="editor-invitation">
+  <div>
+    <h2>你也有一个想法？</h2>
+    <p>拖入一份 Markdown，打开你的写作空间。</p>
+  </div>
+  <a class="button primary" href="/studio/">打开写作台 →</a>
+</div>

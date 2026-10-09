@@ -1,0 +1,176 @@
+/* Dialogs styles. Shared colors and spacing live in base.css. */
+dialog {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+  max-width: calc(100vw - 32px);
+}
+dialog::backdrop {
+  background: #17251c69;
+  backdrop-filter: blur(5px);
+}
+.search-dialog {
+  width: 620px;
+  margin-top: 14vh;
+}
+.dialog-top {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: 1px solid var(--line);
+  padding: 16px 20px;
+}
+.dialog-top input {
+  flex: 1;
+  outline: 0;
+  border: 0;
+  background: transparent;
+  font-size: 14px;
+}
+.icon-button {
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  border-radius: 6px;
+}
+.dialog-top > .icon {
+  color: var(--muted);
+}
+.search-results {
+  max-height: 52vh;
+  overflow: auto;
+  padding: 13px;
+}
+.search-result {
+  display: block;
+  padding: 13px 14px;
+  border-radius: 6px;
+}
+.search-result:hover,
+.search-result.selected {
+  background: var(--green-soft);
+}
+.search-result strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+}
+.search-result small {
+  display: block;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 6px;
+}
+.search-hint {
+  padding: 23px 13px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.dialog-footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 9px;
+  color: var(--muted);
+  padding: 13px 22px;
+  border-top: 1px solid var(--line);
+}
+.terminal-dialog {
+  width: 640px;
+  background: #17231c;
+  color: #c6dabb;
+  font:
+    12px/1.8 Consolas,
+    monospace;
+}
+.terminal-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #243329;
+  padding: 8px 15px;
+  font-size: 10px;
+}
+.terminal-top > span {
+  color: #859d77;
+  letter-spacing: 3px;
+}
+#terminal-output {
+  max-height: 330px;
+  min-height: 200px;
+  overflow: auto;
+  padding: 20px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+#terminal-output p {
+  margin: 0 0 10px;
+}
+#terminal-form {
+  display: flex;
+  padding: 12px 20px 20px;
+  gap: 12px;
+}
+#terminal-input {
+  flex: 1;
+  border: 0;
+  background: none;
+  outline: 0;
+  color: #dbe9d0;
+}
+.photo-dialog {
+  background: #18201a;
+  width: min(1000px, 94vw);
+  border: 0;
+  color: #fff;
+}
+.photo-dialog img {
+  width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+}
+.photo-dialog > .icon-button {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  color: #fff;
+  background: #0007;
+}
+.photo-dialog p {
+  text-align: center;
+  margin: 0;
+  padding: 16px;
+  font-size: 12px;
+}
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: calc(50% + 100px);
+  transform: translate(-50%, 15px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 12px;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+  max-width: 85vw;
+  text-align: center;
+}
+.toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.mobile-menu,
+.sidebar-scrim {
+  display: none;
+}

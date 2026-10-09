@@ -1,3 +1,58 @@
-{{ define "main" }}<div class="page-intro"><div class="eyebrow">THE WRITING ROOM</div><h1>{{ if eq .Section "posts" }}文字的栖息地。{{ else }}{{ .Title }}{{ end }}</h1><p>把思考写下来，把时间留在这里。</p></div>
-{{ if or (eq .Kind "taxonomy") (eq .Kind "term") }}<div class="filter-row"><a class="filter-chip" href="/posts/">← 所有文章</a>{{ range .Site.Taxonomies.tags.Alphabetical }}<a class="filter-chip" href="{{ .Page.RelPermalink }}"># {{ .Page.Title }} <small>{{ .Count }}</small></a>{{ end }}</div>{{ end }}
-{{ if eq .Kind "taxonomy" }}<div class="tag-cloud">{{ range .Pages }}<a href="{{ .RelPermalink }}">{{ .Title }} <small>{{ len .Pages }}</small></a>{{ end }}</div>{{ else }}<div class="writing-toolbar"><div class="filter-row"><button class="filter-chip active" data-filter="all" aria-pressed="true">全部</button>{{ range .Site.Taxonomies.categories.Alphabetical }}<button class="filter-chip" data-filter="{{ .Page.Title }}" aria-pressed="false">{{ .Page.Title }} <small>{{ .Count }}</small></button>{{ end }}</div><label class="sort-label">排序 <select id="post-sort"><option value="newest">最新发布</option><option value="oldest">最早发布</option><option value="title">标题顺序</option></select></label></div><div class="list-search">{{ partial "icon.html" "search" }}<input id="post-search" aria-label="筛选文章" placeholder="按标题或标签筛选…"><span id="post-count"></span></div><div class="writing-grid" id="post-list">{{ range .RegularPages.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}</div><div id="list-empty" class="empty-state" hidden>没有找到匹配的文章。试试其他关键词？<button class="button" data-action="reset-filters">重置筛选</button></div>{{ end }}{{ end }}
+{{ define "main" }}
+  <div class="page-intro">
+    <div class="eyebrow">THE WRITING ROOM</div>
+    <h1>{{ if eq .Section "posts" }}文字的栖息地。{{ else }}{{ .Title }}{{ end }}</h1>
+    <p>把思考写下来，把时间留在这里。</p>
+  </div>
+  {{ if or (eq .Kind "taxonomy") (eq .Kind "term") }}
+    <div class="filter-row">
+      <a class="filter-chip" href="/posts/">← 所有文章</a
+      >{{ range .Site.Taxonomies.tags.Alphabetical }}
+        <a class="filter-chip" href="{{ .Page.RelPermalink }}"
+          ># {{ .Page.Title }} <small>{{ .Count }}</small></a
+        >
+      {{ end }}
+    </div>
+  {{ end }}
+  {{ if eq .Kind "taxonomy" }}
+    <div class="tag-cloud">
+      {{ range .Pages }}
+        <a href="{{ .RelPermalink }}">{{ .Title }} <small>{{ len .Pages }}</small></a>
+      {{ end }}
+    </div>
+  {{ else }}
+    <div class="writing-toolbar">
+      <div class="filter-row">
+        <button class="filter-chip active" data-filter="all" aria-pressed="true">全部</button
+        >{{ range .Site.Taxonomies.categories.Alphabetical }}
+          <button class="filter-chip" data-filter="{{ .Page.Title }}" aria-pressed="false">
+            {{ .Page.Title }} <small>{{ .Count }}</small>
+          </button>
+        {{ end }}
+      </div>
+      <label class="sort-label"
+        >排序
+        <select id="post-sort">
+          <option value="newest">最新发布</option>
+          <option value="oldest">最早发布</option>
+          <option value="title">标题顺序</option>
+        </select></label
+      >
+    </div>
+    <div class="list-search">
+      {{ partial "icon.html" "search" }}<input
+        id="post-search"
+        aria-label="筛选文章"
+        placeholder="按标题或标签筛选…"
+      /><span id="post-count"></span>
+    </div>
+    <div class="writing-grid" id="post-list">
+      {{ range .RegularPages.ByDate.Reverse }}{{ partial "post-card.html" . }}{{ end }}
+    </div>
+    <div id="list-empty" class="empty-state" hidden>
+      没有找到匹配的文章。试试其他关键词？<button class="button" data-action="reset-filters">
+        重置筛选
+      </button>
+    </div>
+  {{ end }}
+{{ end }}

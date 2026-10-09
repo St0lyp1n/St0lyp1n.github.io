@@ -1,0 +1,12 @@
+{
+  "singleQuote": true,
+  "printWidth": 100,
+  "trailingComma": "all",
+  "plugins": ["prettier-plugin-go-template"],
+  "overrides": [
+    {
+      "files": ["layouts/**/*.html", "layouts/**/*.xml", "layouts/**/*.json"],
+      "options": { "parser": "go-template" }
+    }
+  ]
+}

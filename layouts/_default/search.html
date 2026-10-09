@@ -1,1 +1,13 @@
-{{ define "main" }}<div class="page-intro"><div class="eyebrow">FIND SOMETHING GOOD</div><h1>寻找一束灵光。</h1><p>搜索全文、标题、标签与随记。</p></div><button class="button primary" data-action="search">打开全站搜索 <kbd>Ctrl K</kbd></button><div class="tag-cloud">{{ range .Site.Taxonomies.tags.Alphabetical }}<a href="{{ .Page.RelPermalink }}"># {{ .Page.Title }} <small>{{ .Count }}</small></a>{{ end }}</div>{{ end }}
+{{ define "main" }}
+  <div class="page-intro">
+    <div class="eyebrow">FIND SOMETHING GOOD</div>
+    <h1>寻找一束灵光。</h1>
+    <p>搜索全文、标题、标签与随记。</p>
+  </div>
+  <button class="button primary" data-action="search">打开全站搜索 <kbd>Ctrl K</kbd></button>
+  <div class="tag-cloud">
+    {{ range .Site.Taxonomies.tags.Alphabetical }}
+      <a href="{{ .Page.RelPermalink }}"># {{ .Page.Title }} <small>{{ .Count }}</small></a>
+    {{ end }}
+  </div>
+{{ end }}

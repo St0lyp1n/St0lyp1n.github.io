@@ -1,0 +1,479 @@
+/* V2 reading and navigation refinements. Prefer one obvious action per surface. */
+.nav-group-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin: 21px 14px 9px;
+}
+.nav-group-label:first-child {
+  margin-top: 0;
+}
+.sidebar .brand {
+  margin-bottom: 29px;
+}
+.nav-list {
+  gap: 3px;
+}
+.nav-item {
+  font-size: 14px;
+  min-height: 44px;
+}
+.nav-item .nav-en {
+  display: none;
+}
+.sidebar-write {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: var(--green);
+  color: var(--bg);
+  border: 1px solid var(--green);
+  border-radius: 7px;
+  min-height: 44px;
+  margin: 25px 10px 0;
+  font-size: 13px;
+}
+.sidebar-write:hover {
+  opacity: 0.9;
+  color: var(--bg);
+}
+.sidebar-write[aria-current='page'] {
+  background: var(--green-soft);
+  color: var(--green);
+}
+.sidebar .sidebar-bottom {
+  padding-top: 25px;
+}
+.sidebar-tools a,
+.sidebar-tools button {
+  min-width: 36px;
+  min-height: 36px;
+}
+.sidebar-tools button[aria-label] {
+  position: relative;
+}
+.topbar {
+  height: 72px;
+}
+.breadcrumb {
+  font-size: 12px;
+}
+.search-trigger {
+  border: 1px solid var(--line);
+  padding: 8px 11px;
+  border-radius: 7px;
+  background: var(--surface);
+  font-size: 12px;
+  min-height: 36px;
+  min-width: 210px;
+}
+.search-trigger kbd {
+  margin-left: auto;
+}
+.hero {
+  margin-bottom: 32px;
+}
+.hero h1 {
+  font-size: 55px;
+  line-height: 1.4;
+}
+.hero-photo {
+  height: 315px;
+}
+.hero-copy > p {
+  font-size: 13px;
+  line-height: 2;
+}
+.hero-footnote {
+  margin-top: 26px;
+}
+.garden-strip {
+  margin-bottom: 34px;
+}
+.section-heading h2 {
+  font-size: 21px;
+}
+.section-heading h2 span {
+  font-size: 9px;
+}
+.section-heading > a {
+  font-size: 12px;
+}
+.home-columns {
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 35px;
+}
+.home-columns .post-card {
+  padding: 27px 0;
+}
+.post-card p {
+  font-size: 13px;
+}
+.post-meta {
+  font-size: 11px;
+}
+.post-meta .category {
+  font-size: 10px;
+}
+.post-bottom {
+  font-size: 11px;
+}
+.post-bottom button {
+  min-width: 30px;
+  min-height: 30px;
+}
+.post-tags {
+  font-size: 11px;
+}
+.all-posts {
+  padding: 10px 0;
+  font-size: 12px;
+}
+.page-intro h1 {
+  font-size: 38px;
+}
+.filter-chip {
+  font-size: 12px;
+  min-height: 35px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.list-search {
+  border: 1px solid var(--line);
+  padding: 12px 15px;
+  border-radius: 7px;
+  background: var(--surface);
+}
+.list-search input {
+  font-size: 13px;
+}
+.writing-grid {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+}
+.writing-grid .post-card {
+  padding: 28px 2px;
+}
+.writing-grid .post-card h3 {
+  font-size: 21px;
+}
+.writing-toolbar {
+  max-width: 900px;
+}
+.list-search {
+  max-width: 900px;
+}
+.project-card h3 {
+  font-size: 18px;
+}
+.project-kind,
+.project-tags span {
+  font-size: 10px;
+}
+.now-card > p {
+  font-size: 12px;
+}
+.now-item {
+  font-size: 12px;
+}
+.now-item small {
+  font-size: 11px;
+}
+.updated {
+  font-size: 9px;
+}
+.note-preview p {
+  font-size: 15px;
+}
+.rss-card {
+  font-size: 12px;
+}
+.rss-card small {
+  font-size: 10px;
+}
+.article-tools {
+  font-size: 12px;
+  gap: 10px;
+}
+.article-tools > button {
+  min-height: 35px;
+  padding: 5px 8px;
+  border-radius: 5px;
+}
+.article-tools > button:hover {
+  background: var(--green-soft);
+}
+.article-toc {
+  font-size: 12px;
+}
+.article-tools .bookmark-button .icon {
+  width: 16px;
+  height: 16px;
+}
+.footer {
+  font-size: 10px;
+}
+.discovery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 35px;
+}
+.discovery-card {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 9px;
+  padding: 25px;
+  display: block;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+}
+.discovery-card:hover {
+  background: var(--wash);
+  border-color: var(--green);
+}
+.discovery-card > .icon {
+  width: 25px;
+  height: 25px;
+  color: var(--green);
+  margin-bottom: 18px;
+}
+.discovery-card h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+.discovery-card p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.9;
+}
+.discovery-card span {
+  font-size: 11px;
+  color: var(--green);
+}
+.editor-invitation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 25px;
+  margin-top: 30px;
+}
+.editor-invitation h2 {
+  font: 23px var(--serif);
+  margin-bottom: 8px;
+}
+.editor-invitation p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+.editor-invitation .button {
+  white-space: nowrap;
+}
+.back-top {
+  min-width: 38px;
+  min-height: 38px;
+}
+.lab-row .button {
+  margin: 0;
+}
+.page-intro {
+  padding-top: 10px;
+}
+.mobile-toc {
+  display: none;
+}
+.search-result strong {
+  font-size: 15px;
+}
+.search-result small {
+  font-size: 12px;
+  line-height: 1.7;
+}
+.search-trigger .icon {
+  width: 17px;
+  height: 17px;
+}
+.post-card p {
+  max-width: 740px;
+}
+@media (max-width: 1180px) {
+  .hero h1 {
+    font-size: 45px;
+  }
+  .hero-photo {
+    height: 300px;
+  }
+  .home-columns {
+    grid-template-columns: minmax(0, 1fr) 230px;
+    gap: 25px;
+  }
+  .sidebar-write {
+    margin-inline: 4px;
+  }
+  .search-trigger {
+    min-width: 185px;
+  }
+  .discovery-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 960px) {
+  .home-columns {
+    grid-template-columns: 1fr;
+  }
+  .hero h1 {
+    font-size: 39px;
+  }
+  .hero-photo {
+    height: 280px;
+  }
+  .hero-copy > p {
+    font-size: 12px;
+  }
+  .home-aside {
+    grid-template-columns: 1fr 1fr;
+  }
+  .mobile-toc {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    margin: 20px 0;
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+  .mobile-toc summary {
+    cursor: pointer;
+    color: var(--green);
+  }
+  .mobile-toc ul {
+    padding-left: 18px;
+  }
+  .mobile-toc li {
+    padding: 4px 0;
+  }
+  .editor-invitation {
+    padding: 22px;
+  }
+}
+@media (max-width: 700px) {
+  .topbar {
+    height: 62px;
+  }
+  .search-trigger {
+    min-width: auto;
+    padding: 7px 9px;
+    font-size: 11px;
+  }
+  .hero h1 {
+    font-size: 46px;
+  }
+  .hero-photo {
+    height: 230px;
+  }
+  .hero {
+    gap: 24px;
+  }
+  .hero-copy > p {
+    font-size: 13px;
+  }
+  .hero-footnote {
+    display: none;
+  }
+  .garden-strip {
+    gap: 10px;
+    margin-bottom: 26px;
+  }
+  .garden-strip > span:first-child {
+    font-size: 9px;
+  }
+  .garden-strip strong {
+    font-size: 18px;
+  }
+  .section-heading h2 {
+    font-size: 21px;
+  }
+  .section-heading > a {
+    font-size: 11px;
+  }
+  .home-columns .post-card {
+    padding: 23px 0;
+  }
+  .home-columns .post-card h3 {
+    font-size: 19px;
+  }
+  .home-columns .post-card p {
+    font-size: 13px;
+  }
+  .post-meta {
+    font-size: 10px;
+  }
+  .post-tags,
+  .post-bottom {
+    font-size: 10px;
+  }
+  .home-aside {
+    grid-template-columns: 1fr;
+  }
+  .writing-grid .post-card h3 {
+    font-size: 20px;
+  }
+  .page-intro h1 {
+    font-size: 32px;
+  }
+  .filter-row {
+    gap: 4px;
+  }
+  .filter-chip {
+    min-height: 38px;
+    padding: 5px 12px;
+    font-size: 12px;
+  }
+  .discovery-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .discovery-card {
+    padding: 19px;
+  }
+  .discovery-card h2 {
+    font-size: 17px;
+  }
+  .discovery-card p {
+    font-size: 11px;
+  }
+  .editor-invitation {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 17px;
+  }
+  .article-tools {
+    gap: 5px;
+    font-size: 11px;
+  }
+  .footer > div {
+    flex-wrap: wrap;
+  }
+  .now-card {
+    padding: 23px;
+  }
+  .sidebar .brand {
+    margin-bottom: 22px;
+  }
+  .nav-group-label {
+    margin-top: 16px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

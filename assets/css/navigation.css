@@ -1,0 +1,164 @@
+/* Navigation styles. Shared colors and spacing live in base.css. */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: 226px;
+  background: var(--sidebar);
+  border-right: 1px solid var(--line);
+  padding: 34px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  z-index: 30;
+  overflow-y: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 8px 44px;
+  font:
+    600 26px Georgia,
+    serif;
+  letter-spacing: -0.8px;
+}
+.brand-mark {
+  font-size: 35px;
+  font-style: italic;
+  background: var(--green);
+  color: var(--bg);
+  width: 44px;
+  height: 46px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  padding-right: 4px;
+}
+.brand-sub {
+  display: block;
+  font: 9px var(--sans);
+  letter-spacing: 2px;
+  margin-top: 8px;
+  color: var(--muted);
+}
+.nav-label {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  padding: 0 14px;
+  margin-bottom: 15px;
+}
+.nav-list {
+  display: grid;
+  gap: 5px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 10px 14px;
+  min-height: 44px;
+  border-radius: 7px;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+}
+.nav-item:hover {
+  background: var(--green-soft);
+}
+.nav-item.active {
+  color: var(--green);
+  background: var(--green-soft);
+  font-weight: 600;
+}
+.nav-item .icon {
+  width: 17px;
+  height: 17px;
+}
+.nav-en {
+  font-size: 10px;
+  margin-left: auto;
+  font-weight: 400;
+  opacity: 0.7;
+}
+.nav-count {
+  font: 10px var(--sans);
+  padding: 1px 6px;
+  border-radius: 5px;
+  background: var(--line);
+  margin-left: auto;
+}
+.nav-item:has(.nav-count) .nav-en {
+  display: none;
+}
+.sidebar-divider {
+  border-top: 1px solid var(--line);
+  margin: 22px 12px 12px;
+}
+.tiny-label {
+  font-size: 8px;
+  letter-spacing: 1px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 0 5px;
+  margin-left: auto;
+}
+.sidebar-bottom {
+  margin-top: auto;
+  padding-top: 32px;
+}
+.status-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  padding: 14px 12px;
+  font-size: 11px;
+}
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #709b64;
+  box-shadow: 0 0 0 4px #82a46f12;
+  flex-shrink: 0;
+}
+.status-card .status-dot {
+  margin-top: 6px;
+}
+.status-card small {
+  display: block;
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+.sidebar-tools {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px 4px 10px;
+  color: var(--muted);
+}
+.sidebar-tools a,
+.sidebar-tools button {
+  padding: 5px;
+  display: grid;
+  place-items: center;
+}
+.sidebar-tools .icon {
+  width: 17px;
+  height: 17px;
+}
+.sidebar-caption {
+  font:
+    9px Georgia,
+    serif;
+  color: var(--muted);
+  text-align: center;
+  letter-spacing: 1px;
+}
+.sidebar-caption span {
+  padding-left: 9px;
+  color: var(--green);
+}

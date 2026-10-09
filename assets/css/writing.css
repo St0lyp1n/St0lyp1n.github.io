@@ -1,0 +1,96 @@
+/* Writing styles. Shared colors and spacing live in base.css. */
+.page-intro {
+  padding: 18px 0 38px;
+}
+.page-intro h1 {
+  font: 42px/1.5 var(--serif);
+  margin: 18px 0 12px;
+  letter-spacing: 1px;
+}
+.page-intro p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.9;
+  margin-bottom: 0;
+}
+.demo-notice {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 10px;
+  color: var(--muted);
+  padding: 5px 9px;
+  background: var(--wash);
+  border-radius: 4px;
+}
+.writing-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 22px;
+}
+.filter-row {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.sort-label {
+  font-size: 10px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.sort-label select {
+  border: 0;
+  padding: 5px;
+  cursor: pointer;
+}
+.list-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line);
+  padding: 10px 0 15px;
+  color: var(--muted);
+}
+.list-search input {
+  border: 0;
+  outline: 0;
+  flex: 1;
+  font-size: 12px;
+}
+.list-search span {
+  font-size: 10px;
+}
+.writing-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 35px;
+  margin-bottom: 50px;
+}
+.writing-grid .post-card {
+  padding: 29px 0;
+}
+.empty-state {
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+.empty-state .button {
+  display: table;
+  margin: 20px auto;
+}
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 40px 0;
+}
+.tag-cloud a {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+.tag-cloud small {
+  color: var(--muted);
+}

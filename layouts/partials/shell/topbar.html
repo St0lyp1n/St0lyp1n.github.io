@@ -1,0 +1,17 @@
+<header class="topbar">
+  <div class="breadcrumb">
+    <button
+      class="mobile-menu icon-button"
+      data-action="menu"
+      aria-label="打开导航"
+      aria-expanded="false"
+      aria-controls="sidebar"
+    >
+      {{ partial "icon.html" "menu" }}</button
+    ><span class="breadcrumb-home">Stolypin 的数字花园</span><span class="slash">/</span
+    ><span>{{ if .IsHome }}首页{{ else }}{{ .Title }}{{ end }}</span>
+  </div>
+  <button class="search-trigger" data-action="search">
+    {{ partial "icon.html" "search" }}<span>搜索这个小宇宙</span><kbd>Ctrl K</kbd>
+  </button>
+</header>

@@ -1,1 +1,87 @@
-{{ define "main" }}{{ if eq .Section "posts" }}<div class="article-layout"><article class="article" data-article="{{ .RelPermalink }}"><a class="back-link" href="/posts/">← 返回文章</a><header class="article-header"><div class="eyebrow">{{ delimit .Params.categories " / " }} {{ if .Params.demo }}<span class="demo-label">演示文章</span>{{ end }}</div><h1>{{ .Title }}</h1><p class="article-description">{{ .Description }}</p><div class="author-line"><img src="/images/avatar.png" alt="Stolypin" width="34" height="34"><span>Stolypin</span><span>·</span><time>{{ .Date.Format "2006 年 01 月 02 日" }}</time><span>· {{ .ReadingTime }} 分钟阅读</span></div></header>{{ if .Params.coverImage }}<img class="article-cover" src="{{ .Params.coverImage }}" alt="{{ .Params.coverAlt }}">{{ end }}<div class="article-tools"><button data-action="font-down" aria-label="减小正文字号">A−</button><button data-action="font-up" aria-label="增大正文字号">A+</button><button data-action="focus">专注阅读</button><button class="bookmark-button" data-bookmark="{{ .RelPermalink }}" data-title="{{ .Title }}" aria-pressed="false">{{ partial "icon.html" "bookmark" }} 收藏</button><button data-action="share">分享链接 ↗</button></div><div class="prose">{{ .Content }}</div><div class="article-end">— 写于 {{ .Date.Format "2006.01.02" }} —</div><div class="article-tags">{{ range .Params.tags }}<a class="filter-chip" href="{{ printf "/tags/%s/" (. | urlize) }}"># {{ . }}</a>{{ end }}</div><section class="related"><h2>或许你还想读</h2>{{ range first 2 (where (where .Site.RegularPages "Section" "posts") "Permalink" "ne" .Permalink) }}<a href="{{ .RelPermalink }}">{{ .Title }} <span>↗</span></a>{{ end }}</section><section class="comments"><h2>在这里，继续聊聊</h2><p>通过 GitHub Discussions 交流。点击后加载评论服务。</p><button class="button" data-action="comments">加载评论</button><div id="giscus" data-repo="{{ .Site.Params.giscus.repo }}" data-repo-id="{{ .Site.Params.giscus.repoId }}" data-category="{{ .Site.Params.giscus.category }}" data-category-id="{{ .Site.Params.giscus.categoryId }}"></div><a class="comment-fallback" href="https://github.com/St0lyp1n/St0lyp1n.github.io/discussions" target="_blank" rel="noopener noreferrer">也可以前往 GitHub 讨论区 ↗</a></section></article><aside class="article-toc"><div class="eyebrow">ON THIS PAGE</div><h3>文章目录</h3>{{ .TableOfContents }}<div class="toc-note">慢一点读，<br>也许会发现更多。</div></aside></div>{{ else }}<div class="page-intro"><div class="eyebrow">IN THE GARDEN</div><h1>{{ .Title }}</h1></div><div class="prose standalone">{{ .Content }}</div>{{ end }}{{ end }}
+{{ define "main" }}
+  {{ if eq .Section "posts" }}
+    <div class="article-layout">
+      <article class="article" data-article="{{ .RelPermalink }}">
+        <a class="back-link" href="/posts/">← 返回文章</a>
+        <header class="article-header">
+          <div class="eyebrow">
+            {{ delimit .Params.categories " / " }}
+            {{ if .Params.demo }}<span class="demo-label">演示文章</span>{{ end }}
+          </div>
+          <h1>{{ .Title }}</h1>
+          <p class="article-description">{{ .Description }}</p>
+          <div class="author-line">
+            <img src="/images/avatar.png" alt="Stolypin" width="34" height="34" /><span
+              >Stolypin</span
+            ><span>·</span><time>{{ .Date.Format "2006 年 01 月 02 日" }}</time
+            ><span>· {{ .ReadingTime }} 分钟阅读</span>
+          </div>
+        </header>
+        {{ if .Params.coverImage }}
+          <img class="article-cover" src="{{ .Params.coverImage }}" alt="{{ .Params.coverAlt }}" />
+        {{ end }}
+        <div class="article-tools">
+          <button data-action="font-down" aria-label="减小正文字号">A−</button
+          ><button data-action="font-up" aria-label="增大正文字号">A+</button
+          ><button data-action="focus">专注阅读</button
+          ><button
+            class="bookmark-button"
+            data-bookmark="{{ .RelPermalink }}"
+            data-title="{{ .Title }}"
+            aria-pressed="false"
+          >
+            {{ partial "icon.html" "bookmark" }} 收藏</button
+          ><button data-action="share">分享链接 ↗</button>
+        </div>
+        <details class="mobile-toc">
+          <summary>文章目录</summary>
+          {{ replace .TableOfContents `id="TableOfContents"` `id="MobileTableOfContents"` | safeHTML }}
+        </details>
+        <div class="prose">{{ .Content }}</div>
+        <div class="article-end">— 写于 {{ .Date.Format "2006.01.02" }} —</div>
+        <div class="article-tags">
+          {{ range .Params.tags }}
+            <a class="filter-chip" href="{{ printf "/tags/%s/" (. | urlize) }}"># {{ . }}</a>
+          {{ end }}
+        </div>
+        <section class="related">
+          <h2>或许你还想读</h2>
+          {{ range first 2 (where (where .Site.RegularPages "Section" "posts") "Permalink" "ne" .Permalink) }}
+            <a href="{{ .RelPermalink }}">{{ .Title }} <span>↗</span></a>
+          {{ end }}
+        </section>
+        <section class="comments">
+          <h2>在这里，继续聊聊</h2>
+          <p>通过 GitHub Discussions 交流。点击后加载评论服务。</p>
+          <button class="button" data-action="comments">加载评论</button>
+          <div
+            id="giscus"
+            data-repo="{{ .Site.Params.giscus.repo }}"
+            data-repo-id="{{ .Site.Params.giscus.repoId }}"
+            data-category="{{ .Site.Params.giscus.category }}"
+            data-category-id="{{ .Site.Params.giscus.categoryId }}"
+          ></div>
+          <a
+            class="comment-fallback"
+            href="https://github.com/St0lyp1n/St0lyp1n.github.io/discussions"
+            target="_blank"
+            rel="noopener noreferrer"
+            >也可以前往 GitHub 讨论区 ↗</a
+          >
+        </section>
+      </article>
+      <aside class="article-toc">
+        <div class="eyebrow">ON THIS PAGE</div>
+        <h3>文章目录</h3>
+        {{ .TableOfContents }}
+        <div class="toc-note">慢一点读，<br />也许会发现更多。</div>
+      </aside>
+    </div>
+  {{ else }}
+    <div class="page-intro">
+      <div class="eyebrow">IN THE GARDEN</div>
+      <h1>{{ .Title }}</h1>
+    </div>
+    <div class="prose standalone">{{ .Content }}</div>
+  {{ end }}
+{{ end }}

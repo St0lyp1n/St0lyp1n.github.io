@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Digital Garden · 数字花园",
+    "description": "用文字、代码与一点耐心，搭建一片属于自己的互联网。轻量、开放，持续生长。",
+    "symbol": "s.",
+    "color": "green",
+    "type": "本站源码",
+    "url": "https://github.com/St0lyp1n/St0lyp1n.github.io",
+    "tags": ["Hugo", "Markdown", "Open Source"]
+  },
+  {
+    "name": "Little Lab · 灵感实验室",
+    "description": "一些不太严肃、但很好用的小实验。专注时间、自然配色，还有想法的草稿纸。",
+    "symbol": "✳",
+    "color": "sand",
+    "type": "交互实验",
+    "url": "/lab/",
+    "tags": ["Creative Coding", "JavaScript", "可体验"]
+  },
+  {
+    "name": "Quiet Focus · 专注时刻",
+    "description": "给一件小事留出完整的 25 分钟。可以暂停、重置，或切换到 5 分钟休息。",
+    "symbol": "◷",
+    "color": "blue",
+    "type": "效率工具",
+    "url": "/lab/#focus",
+    "tags": ["Pomodoro", "本地运行"]
+  },
+  {
+    "name": "Paper Notes · 随手写写",
+    "description": "随写随看的 Markdown 小编辑器，支持浏览器自动保存和 Markdown 文件导出。",
+    "symbol": "Aa",
+    "color": "green",
+    "type": "写作工具",
+    "url": "/lab/#markdown",
+    "tags": ["Markdown", "Local First"]
+  }
+]

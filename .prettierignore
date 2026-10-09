@@ -1,0 +1,9 @@
+themes/
+public/
+resources/
+.tools/
+.artifacts/
+node_modules/
+package-lock.json
+layouts/_default/rss.xml
+assets/jsconfig.json

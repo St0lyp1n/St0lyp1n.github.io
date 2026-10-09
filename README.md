@@ -1,95 +1,79 @@
 # Stolypin · 数字花园
 
-一个基于现有 Hugo / PaperMod 仓库重新设计的个人博客 demo。
+个人博客与本地 Markdown 写作台，基于 Hugo 构建，发布到 GitHub Pages。
 
-**正式地址：https://st0lyp1n.github.io/**
+- [访问博客](https://st0lyp1n.github.io/)
+- [打开写作台](https://st0lyp1n.github.io/studio/)
+- [写作与导入指南](docs/WRITING.md)
+- [项目结构与维护指南](docs/ARCHITECTURE.md)
 
-## 功能
+## 写作台
 
-- 首页、文章、随记、项目、书架、相册、友邻、关于、近况、归档。
-- 中文全文搜索，支持标题、正文、标签与随记；Ctrl/Cmd+K 或 `/` 唤起。
-- 分类/标签浏览、即时筛选、标题筛选、时间/标题排序。
-- 文章目录、滚动进度、阅读时间、字号调节、专注模式、代码复制、公式、分享链接、相关文章。
-- 阅读收藏与 JSON 导出；收藏、主题、字号保存在当前浏览器。
-- 按需加载 Giscus 评论，沿用仓库原来的 GitHub Discussions 配置。
-- 深浅色主题、响应式侧栏、键盘可达、原生对话框、减少动画偏好、打印样式。
-- 随记分类、书架状态筛选与札记、相册灯箱。
-- 实验室：25/5 分钟计时器、HEX 配色复制、Markdown 草稿预览/自动保存/下载、交互终端。
-- RSS、站点地图、canonical、Open Graph 基础元数据、自定义 favicon 与 404 页。
-- 核心页面不依赖外部字体或 JavaScript CDN；照片保存在仓库中。
+直接拖入一个或多个 `.md` / `.markdown` 文件，编辑正文并实时预览。支持 YAML / TOML 文章信息、标题与标签编辑、格式工具栏、撤销重做、同步滚动、手机预览和专注模式。
+
+草稿在当前浏览器自动保存，支持搜索、复制、删除、Markdown 导出和完整 JSON 备份恢复。导入同名文件不会覆盖已有草稿；导出保留原有额外字段与未修改的时间戳。预览支持表格、任务列表和代码块，过滤危险 HTML，默认阻止远程图片请求。
+
+**写作台是本地编辑器。** 文件不会自动上传，草稿不会跨设备同步。发布时将导出的 Markdown 放入 `content/posts/`，确认 `draft: false` 后提交仓库。清除浏览器数据前请导出备份。
+
+## 阅读与探索
+
+- 简洁首页、文章筛选排序、全站搜索、分类与标签。
+- 阅读收藏、文章目录、进度条、字号调整、专注阅读、代码复制、分享。
+- 深浅色主题、手机导航、键盘操作、减少动画偏好与打印样式。
+- 随记、项目、书架、相册、友邻、近况、归档统一从“逛逛花园”进入。
+- 小工具：番茄钟、配色复制、轻量草稿纸、交互终端。
+- 按需加载 Giscus 评论与 MathJax 公式，RSS、站点地图与基础 SEO。
 
 ## 本地运行
 
-安装 Hugo **0.160.1** 或兼容版本。项目无 npm 运行依赖。
+需要 **Node.js 20+** 和 **Hugo 0.160.1**。将 Hugo 加入 PATH，或放在 `.tools/hugo/`；也可通过 `HUGO_BINARY` 指定路径。
 
 ```bash
-hugo server -D
+npm ci
+npm run dev
 ```
 
-访问终端显示的地址（默认 `http://localhost:1313`）。
+打开 `http://127.0.0.1:1313`。修改模板、样式与内容会自动刷新。
 
 ```bash
-hugo --gc --minify
-node scripts/verify-site.mjs public
+npm test                 # 导入、导出与备份模型测试
+npm run build            # 构建到 public/
+npm run check            # 校验生成页面、链接、图片、索引与 RSS
+npx playwright install chromium
+npm run test:browser     # 桌面与手机真实浏览器交互测试
+npm run format:check     # 格式检查
 ```
 
-校验脚本检查全部生成 HTML 的本地链接、锚点、图片、搜索索引与 RSS。Node 18+ 即可执行。
+浏览器测试会自动启动预览服务。可用 `BROWSER_EXECUTABLE` 指定 Edge / Chrome，用 `BLOG_BASE_URL` 指定已运行的站点。测试报告保存在 `.artifacts/playwright-report/`，不提交到仓库。
 
-## 写一篇文章
+## 从哪里修改
 
-在 `content/posts/` 新建 Markdown：
+| 内容                         | 位置                                                     |
+| ---------------------------- | -------------------------------------------------------- |
+| 域名、站名、评论配置         | `hugo.yaml`                                              |
+| 文章与页面正文               | `content/`                                               |
+| 随记、书籍、项目、照片、友邻 | `data/garden/` 下的独立 JSON                             |
+| 侧栏导航                     | `data/navigation.json`                                   |
+| 首页                         | `layouts/index.html`                                     |
+| 页头、侧栏、页脚与弹窗       | `layouts/partials/shell/`                                |
+| 各内容页面                   | `layouts/partials/pages/`                                |
+| 样式与设计变量               | `assets/css/`，基础变量在 `base.css`                     |
+| 搜索、收藏、阅读等交互       | `assets/js/features/`                                    |
+| 写作台界面逻辑与数据模型     | `assets/js/pages/studio.js`、`assets/js/studio/model.js` |
+| 图片与示例文件               | `static/images/`、`static/examples/`                     |
 
-```yaml
----
-title: 我的新文章
-date: 2026-10-07T10:00:00+08:00
-description: 一句话介绍这篇文章。
-categories: [技术]
-tags: [Hugo, 笔记]
-draft: false
-math: false
----
-```
+公共脚本与页面脚本分别打包，写作台依赖只在进入写作台时加载。PaperMod 上游保留在 `themes/PaperMod/`，自定义设计由项目内的模板覆盖。
 
-正文支持标准 Markdown、代码块和表格。`math: true` 会按需加载 MathJax，支持行内 `$...$` 与块级 `$$...$$`。不要在不受信任的投稿中直接允许原始 HTML；当前内容由仓库作者维护。
+## 部署
 
-演示版设置了 `buildFuture: true`，让固定演示日期在不同构建环境中都能显示。如果以后需要定时发布文章，请改为 `false`。
+推送 `main` 后，GitHub Actions 安装锁定依赖，完成格式、单元、浏览器测试和静态站点检查，再部署 GitHub Pages。PR 只执行检查。
 
-## 修改内容与外观
+仓库为 `St0lyp1n/St0lyp1n.github.io`，Pages 的 Source 使用 **GitHub Actions**。域名已配置为 `https://st0lyp1n.github.io/`，无需 CNAME。
 
-| 内容 | 文件 |
-| --- | --- |
-| 站名、域名、简介、评论配置 | `hugo.yaml` |
-| 首页介绍和侧栏 | `layouts/index.html`、`layouts/_default/baseof.html` |
-| 关于、近况 | `content/about.md`、`content/now.md` |
-| 文章 | `content/posts/*.md` |
-| 随记、书籍、项目、相册、友邻 | `data/garden.json` |
-| 色彩、字号、响应式布局 | `assets/css/garden.css` |
-| 搜索、收藏、实验室等交互 | `assets/js/garden.js` |
-| 图片 | `static/images/` |
+## 内容与限制
 
-原始 Hello World 内容保留。新增 8 篇文章、6 则随记、6 本书的状态与近况均为明确标注的演示内容，请在真实使用前按需替换。没有编造学历、职业或访问统计。相册素材来自 Unsplash，页面逐一附来源，不代表原创摄影。
+原始 Hello World 保留。新增文章、随记、书籍状态与近况属于已标注的演示内容，请按需替换；相册为附来源的 Unsplash 素材，不代表原创摄影。演示配置 `buildFuture: true`；需要定时发布时请改为 `false`。
 
-## 发布
+搜索与草稿在本地处理，无访问跟踪。评论手动加载后连接 Giscus，公式文章使用 MathJax CDN。写作台不会运行 Hugo shortcode 或数学排版，最终效果以 Hugo 预览为准；小工具中的草稿纸保留轻量 Markdown 子集。
 
-现有 `.github/workflows/hugo.yaml` 会在推送 `main` 时构建并发布到 GitHub Pages。
-仓库应为 `St0lyp1n/St0lyp1n.github.io`，Settings → Pages → Source 使用 **GitHub Actions**。
-不要添加 CNAME；这里使用 GitHub 自带的 `st0lyp1n.github.io` 域名。
-
-## 隐私与限制
-
-- 本地存储不等于云备份；清除站点数据会清除收藏与草稿，不跨设备同步。
-- 计时器用截止时间校正后台节流，但刷新或离开页面会重置，不发送系统通知。
-- 搜索在本地静态索引执行，不上传搜索词，无跟踪脚本。
-- Markdown 草稿纸为轻量子集，不是完整 CommonMark 编辑器；不执行输入的 HTML。
-- Giscus 需要网络、对应 Discussions 分类及安装授权。只有手动点击后加载；评论写入由用户在 Giscus 内完成。
-- 数学公式依赖 MathJax CDN；离线时显示公式原文。其余核心功能不依赖该 CDN。
-- 移动端侧栏不显示时移出键盘导航；所有弹窗可按 Esc 关闭。
-
-## 验证
-
-完成桌面 1440px 与手机 390px 的真实浏览器检查：搜索键盘导航、筛选/排序、收藏持久化、主题持久化、文章阅读设置、书架/随记筛选、相册灯箱、计时、配色、Markdown 持久化与 HTML 转义、终端及移动导航。发布前另检查生成站点的链接与 RSS。
-
-浏览器回归脚本为 `scripts/browser-checks.cjs`，需环境中提供 Playwright 与 Chromium（或通过 `BROWSER_EXECUTABLE` 指定 Edge/Chrome）。`BLOG_BASE_URL` 默认 `http://127.0.0.1:1313`，截图保存在忽略的 `.artifacts/` 目录。运行 `node scripts/browser-checks.cjs` 即可复现。
-
-主题上游 PaperMod 保留在 `themes/PaperMod`，自定义模板在项目 `layouts` 中覆盖。旧扩展文件不参与新的页面样式加载，可用于回溯原版。第三方主题的许可证见其目录。
+第三方主题许可证在主题目录，浏览器依赖许可证在 `static/licenses/`。

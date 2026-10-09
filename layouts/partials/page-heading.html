@@ -1,0 +1,6 @@
+<div class="page-intro">
+  <div class="eyebrow">{{ .Params.eyebrow }}</div>
+  <h1>{{ .Params.headline | default .Title }}</h1>
+  <p>{{ .Description }}</p>
+  {{ if .Params.demo }}<span class="demo-notice">演示内容 · 用来展示这个角落的可能性</span>{{ end }}
+</div>

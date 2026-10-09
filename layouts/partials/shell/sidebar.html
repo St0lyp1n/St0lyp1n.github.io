@@ -1,0 +1,59 @@
+<aside class="sidebar" id="sidebar" aria-label="侧边导航">
+  <a class="brand" href="/" aria-label="Stolypin 首页"
+    ><span class="brand-mark">s.</span
+    ><span>Stolypin<span class="brand-sub">A DIGITAL GARDEN</span></span></a
+  >
+  <nav class="nav-list" aria-label="主导航">
+    {{ $page := . }}
+    {{ range hugo.Data.navigation }}
+      <div class="nav-group-label">{{ .label }}</div>
+      {{ range .items }}
+        {{ $active := or (and (eq .url "/") $page.IsHome) (and (ne .url "/") (hasPrefix $page.RelPermalink .url)) }}
+        {{ if and (eq .url "/discover/") (in (slice "library" "gallery" "links" "now" "archives") $page.Params.pageKind) }}
+          {{ $active = true }}
+        {{ end }}
+        <a
+          href="{{ .url }}"
+          class="nav-item {{ if $active }}active{{ end }}"
+          {{ if $active }}aria-current="page"{{ end }}
+        >
+          {{ partial "icon.html" .icon }}<span>{{ .label }}</span>
+          {{ if eq .url "/bookmarks/" }}<span class="bookmark-count nav-count">0</span>{{ end }}
+        </a>
+      {{ end }}
+    {{ end }}
+  </nav>
+  <a
+    class="sidebar-write"
+    href="/studio/"
+    {{ if eq .Params.pageKind "studio" }}aria-current="page"{{ end }}
+    >{{ partial "icon.html" "pen" }} 写作台 <span>↗</span></a
+  >
+  <div class="sidebar-bottom">
+    <a class="status-card" href="/now/"
+      ><span class="status-dot"></span
+      ><span>此刻，正在生长<small>看看最近在做什么 ↗</small></span></a
+    >
+    <div class="sidebar-tools">
+      <a
+        href="{{ .Site.Params.github }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        title="GitHub"
+        >{{ partial "icon.html" "github" }}</a
+      >
+      <a href="/index.xml" aria-label="RSS 订阅" title="RSS 订阅"
+        >{{ partial "icon.html" "rss" }}</a
+      >
+      <button data-action="terminal" aria-label="打开交互终端" title="交互终端（反引号）">
+        {{ partial "icon.html" "terminal" }}
+      </button>
+      <button data-action="theme" aria-label="切换深浅色主题" title="切换深浅色主题">
+        {{ partial "icon.html" "sun" }}
+      </button>
+    </div>
+    <div class="sidebar-caption">Made with curiosity <span>✳</span></div>
+  </div>
+</aside>
+<button class="sidebar-scrim" data-action="menu" aria-label="关闭导航" tabindex="-1"></button>

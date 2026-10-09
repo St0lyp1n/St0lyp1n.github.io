@@ -1,0 +1,25 @@
+<div class="filter-row" style="margin-bottom:25px">
+  <button class="filter-chip active" data-book-filter="all" aria-pressed="true">全部书籍</button
+  ><button class="filter-chip" data-book-filter="在读" aria-pressed="false">在读</button
+  ><button class="filter-chip" data-book-filter="读过" aria-pressed="false">读过</button
+  ><button class="filter-chip" data-book-filter="想读" aria-pressed="false">想读</button>
+</div>
+<div class="book-grid">
+  {{ range hugo.Data.garden.books }}
+    <article class="book-card" data-status="{{ .status }}">
+      <div class="book-spine" style="--cover:{{ .color }}">
+        <small>THE READING ROOM</small><span>{{ .title }}</span><small>{{ .author }}</small>
+      </div>
+      <div>
+        <span class="book-status">{{ .status }}</span>
+        <h2>{{ .title }}</h2>
+        <span class="book-author">{{ .author }}</span>
+        <p>{{ .description }}</p>
+        <details>
+          <summary>展开阅读札记</summary>
+          <p>{{ .note }}</p>
+        </details>
+      </div>
+    </article>
+  {{ end }}
+</div>

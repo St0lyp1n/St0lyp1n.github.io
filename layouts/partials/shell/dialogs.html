@@ -1,0 +1,33 @@
+<dialog id="search-dialog" class="search-dialog" aria-label="全站搜索">
+  <div class="dialog-top">
+    {{ partial "icon.html" "search" }}<input
+      id="search-input"
+      type="search"
+      placeholder="搜索文章、标签、随记…"
+      aria-label="搜索文章、标签、随记"
+      autocomplete="off"
+    /><button class="icon-button" data-close aria-label="关闭搜索">×</button>
+  </div>
+  <div id="search-results" class="search-results" aria-live="polite"></div>
+  <div class="dialog-footer"><span>↑ ↓ 选择 · Enter 打开</span><span>Esc 关闭</span></div>
+</dialog>
+<dialog id="terminal-dialog" class="terminal-dialog" aria-label="交互终端">
+  <div class="terminal-top">
+    <span>● ● ●</span>stolypin@garden: ~<button
+      data-close
+      class="icon-button"
+      aria-label="关闭终端"
+    >
+      ×
+    </button>
+  </div>
+  <div id="terminal-output" role="log"><p>Welcome to the garden. 输入 help 开始探索。</p></div>
+  <form id="terminal-form">
+    <label for="terminal-input">❯</label
+    ><input id="terminal-input" autocomplete="off" spellcheck="false" aria-label="终端命令" />
+  </form>
+</dialog>
+<dialog id="photo-dialog" class="photo-dialog" aria-label="照片预览">
+  <button class="icon-button" data-close aria-label="关闭照片">×</button><img alt="" />
+  <p></p>
+</dialog>

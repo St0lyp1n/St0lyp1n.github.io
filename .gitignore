@@ -29,3 +29,4 @@ resources/_gen/
 .tools/
 .artifacts/
 node_modules/
+assets/jsconfig.json

@@ -1,0 +1,62 @@
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ if not .IsHome }}{{ .Title }} ·{{ end }}{{ .Site.Title }}</title>
+  <meta
+    name="description"
+    content="{{ .Description | default .Summary | default .Site.Params.description | plainify | truncate 160 }}"
+  />
+  <meta name="theme-color" content="#f7f8f3" />
+  <link rel="canonical" href="{{ .Permalink }}" />
+  <meta property="og:title" content="{{ .Title }}" />
+  <meta property="og:description" content="{{ .Description | default .Site.Params.description }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
+  <meta
+    property="og:type"
+    content="{{ if eq .Section "posts" }}
+      article
+    {{ else }}
+      website
+    {{ end }}"
+  />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="alternate" type="application/rss+xml" title="Stolypin 的文章" href="/index.xml" />
+  <script>
+    try {
+      document.documentElement.dataset.theme =
+        localStorage.getItem('garden-theme') ||
+        (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    } catch (e) {}
+  </script>
+  {{ $styles := slice }}{{ range slice "base" "navigation" "home" "writing" "article" "collections" "lab" "dialogs" "responsive" "refinements" }}
+    {{ $styles = $styles | append (resources.Get (printf "css/%s.css" .)) }}
+  {{ end }}{{ $css := $styles | resources.Concat "css/garden.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" />
+  {{ $js := resources.Get "js/main.js" | js.Build (dict "target" "es2020" "minify" true) | fingerprint }}
+  <script defer src="{{ $js.RelPermalink }}"></script>
+  {{ if .Params.math }}
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] },
+      };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {{ end }}
+  {{ if in (slice "lab" "studio") .Params.pageKind }}
+    {{ $entry := resources.Get (printf "js/pages/%s.js" .Params.pageKind) | js.Build (dict "target" "es2020" "minify" true) | fingerprint }}
+    <script defer src="{{ $entry.RelPermalink }}"></script>
+  {{ end }}
+  {{ if eq .Params.pageKind "studio" }}
+    {{ $studioCSS := resources.Get "css/studio.css" | minify | fingerprint }}<link
+      rel="stylesheet"
+      href="{{ $studioCSS.RelPermalink }}"
+    />
+    <meta name="robots" content="noindex,follow" />
+  {{ end }}
+</head>

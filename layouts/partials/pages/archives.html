@@ -1,0 +1,14 @@
+{{ range (where .Site.RegularPages "Section" "posts").GroupByDate "2006" }}
+  <section>
+    <h2 class="archive-year">{{ .Key }}<small> / {{ len .Pages }} 篇</small></h2>
+    {{ range .Pages }}
+      <a class="archive-row" href="{{ .RelPermalink }}"
+        ><time>{{ .Date.Format "01.02" }}</time><span>{{ .Title }}</span
+        ><span class="category">{{ index .Params.categories 0 }}</span></a
+      >
+    {{ end }}
+  </section>
+{{ end }}
+<p class="page-bottom-note">
+  <a href="/tags/">按标签探索 ↗</a> · <a href="/categories/">按分类探索 ↗</a>
+</p>

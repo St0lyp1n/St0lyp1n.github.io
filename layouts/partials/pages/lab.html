@@ -1,0 +1,66 @@
+<div class="lab-grid">
+  <section class="lab-card" id="focus">
+    <div class="eyebrow">01 / FOCUS</div>
+    <h2>留一段专注的时间</h2>
+    <p>把注意力还给眼前的小事。</p>
+    <div class="timer-modes">
+      <button class="filter-chip active" data-minutes="25" aria-pressed="true">专注 25 分钟</button
+      ><button class="filter-chip" data-minutes="5" aria-pressed="false">休息 5 分钟</button>
+    </div>
+    <div id="timer" class="timer-digits" role="timer" aria-label="剩余时间">25:00</div>
+    <div class="timer-controls">
+      <button class="button primary" id="timer-start">开始专注</button
+      ><button class="button" id="timer-reset">重置</button>
+    </div>
+    <small class="lab-note" id="timer-message"
+      >准备好了，就开始吧。离开或刷新页面会重置计时。</small
+    >
+  </section>
+  <section class="lab-card" id="colors">
+    <div class="eyebrow">02 / PALETTE</div>
+    <h2>从自然里借一点颜色</h2>
+    <p>山林、海风和旧书页，都有自己的色谱。</p>
+    <div id="palette" class="color-palette"></div>
+    <div class="timer-controls"><button class="button" id="new-palette">换一组配色 ↻</button></div>
+    <small class="lab-note">点击任意色块，复制 HEX 色值。</small>
+  </section>
+  <section class="lab-card lab-wide" id="markdown">
+    <div class="lab-row">
+      <div>
+        <div class="eyebrow">03 / SCRATCHPAD</div>
+        <h2>想法的草稿纸</h2>
+      </div>
+      <button class="button" id="download-markdown">下载 .md ↓</button>
+    </div>
+    <p>支持标题、列表、引用、粗体、行内代码和代码块。草稿仅保存在当前浏览器。</p>
+    <div class="markdown-editor">
+      <label
+        ><span class="eyebrow">MARKDOWN</span
+        ><textarea id="markdown-input" aria-label="Markdown 草稿" spellcheck="false">
+# 今天的小发现
+
+写一点，想一点。
+
+## 想做的事
+- 给自己留一点空白
+- 读一篇好文章
+- 完成一个小作品
+
+> 保持好奇，缓慢生长。
+
+用 **文字** 留住一个想法。</textarea>
+      </label>
+      <div>
+        <span class="eyebrow">PREVIEW</span>
+        <div id="markdown-preview" class="markdown-preview" aria-label="Markdown 预览"></div>
+      </div>
+    </div>
+  </section>
+  <section class="lab-card lab-wide">
+    <div class="eyebrow">04 / TERMINAL</div>
+    <h2>换一种方式逛花园</h2>
+    <button class="terminal-launch" data-action="terminal">
+      <span>stolypin@garden ~</span><br />❯ help<span> _</span><br />点击打开交互终端 →</button
+    ><small class="lab-note">全站可按 ` 打开。支持导航、随机文章、主题切换与命令历史。</small>
+  </section>
+</div>

@@ -1,0 +1,29 @@
+{
+  "name": "stolypin-digital-garden",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node scripts/hugo.mjs server --bind 127.0.0.1 --port 1313 --disableFastRender",
+    "build": "node scripts/hugo.mjs --gc --minify",
+    "check": "node scripts/verify-site.mjs public",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:browser": "playwright test",
+    "format": "prettier --write assets layouts data scripts tests *.json *.mjs docs README.md",
+    "format:check": "prettier --check assets layouts data scripts tests *.json *.mjs docs README.md"
+  },
+  "dependencies": {
+    "dompurify": "3.4.16",
+    "marked": "18.1.0",
+    "smol-toml": "1.9.0",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.64.0",
+    "prettier": "3.9.9",
+    "prettier-plugin-go-template": "0.0.15"
+  }
+}

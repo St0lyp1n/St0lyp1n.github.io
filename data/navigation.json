@@ -1,0 +1,20 @@
+[
+  {
+    "label": "阅读",
+    "items": [
+      { "url": "/", "label": "首页", "icon": "home" },
+      { "url": "/posts/", "label": "文章", "icon": "pen" },
+      { "url": "/notes/", "label": "随记", "icon": "note" },
+      { "url": "/bookmarks/", "label": "收藏", "icon": "bookmark" }
+    ]
+  },
+  {
+    "label": "探索",
+    "items": [
+      { "url": "/discover/", "label": "逛逛花园", "icon": "grid" },
+      { "url": "/projects/", "label": "项目", "icon": "terminal" },
+      { "url": "/lab/", "label": "小工具", "icon": "spark" },
+      { "url": "/about/", "label": "关于", "icon": "user" }
+    ]
+  }
+]
