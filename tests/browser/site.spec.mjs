@@ -3,13 +3,25 @@ import { test, expect } from '@playwright/test';
 test('reader journey: search, read, bookmark, recover', async ({ page }) => {
   const errors = [];
   page.on('pageerror', (e) => errors.push(e.message));
+  const response = await page.request.get('/index.json');
+  expect(response.ok()).toBe(true);
+  const posts = (await response.json()).filter((item) => item.kind === 'posts');
   await page.goto('/');
-  await expect(page.locator('#home-posts .post-card')).toHaveCount(3);
+  await expect(page.locator('#home-posts .post-card')).toHaveCount(Math.min(3, posts.length));
+  // Content is editable: a garden with no published articles is valid too.
+  if (!posts.length) {
+    await page.goto('/posts/');
+    await expect(page.locator('#list-empty')).toBeVisible();
+    expect(errors).toEqual([]);
+    return;
+  }
+  const post = posts[0];
   await page.locator('[data-action=search]').click();
-  await page.locator('#search-input').fill('循环');
-  await expect(page.locator('.search-result')).toHaveCount(1);
-  await page.locator('.search-result').click();
-  await expect(page).toHaveURL(/agent-loop/);
+  await page.locator('#search-input').fill(post.title);
+  const result = page.locator('.search-result').filter({ hasText: post.title }).first();
+  await expect(result).toBeVisible();
+  await result.click();
+  await expect(page).toHaveURL((url) => decodeURI(url.pathname) === decodeURI(post.url));
   await page.locator('.article-tools [data-bookmark]').click();
   await expect(page.locator('.article-tools [data-bookmark]')).toHaveAttribute(
     'aria-pressed',
@@ -27,17 +39,28 @@ test('filters, ordering, and navigation stay usable after refactoring', async ({
   page,
 }, testInfo) => {
   await page.goto('/posts/');
-  await page.locator('[data-filter=技术]').click();
-  await expect(page.locator('#post-list .post-card:visible')).toHaveCount(3);
+  const cards = await page
+    .locator('#post-list .post-card')
+    .evaluateAll((nodes) =>
+      nodes.map((node) => ({ category: node.dataset.category, date: node.dataset.date })),
+    );
+  const categories = page.locator('[data-filter]:not([data-filter="all"])');
+  if (await categories.count()) {
+    const category = await categories.first().getAttribute('data-filter');
+    await categories.first().click();
+    await expect(page.locator('#post-list .post-card:visible')).toHaveCount(
+      cards.filter((card) => card.category.split(' ').includes(category)).length,
+    );
+  }
   await page.locator('#post-search').fill('zzzz');
   await expect(page.locator('#list-empty')).toBeVisible();
   await page.locator('[data-action=reset-filters]').click();
-  await expect(page.locator('#post-list .post-card:visible')).toHaveCount(9);
+  await expect(page.locator('#post-list .post-card:visible')).toHaveCount(cards.length);
   await page.selectOption('#post-sort', 'oldest');
-  await expect(page.locator('#post-list .post-card').first()).toHaveAttribute(
-    'data-title',
-    'Hello World',
-  );
+  const dates = await page
+    .locator('#post-list .post-card')
+    .evaluateAll((nodes) => nodes.map((node) => node.dataset.date));
+  expect(dates).toEqual(cards.map((card) => card.date).sort());
   if (testInfo.project.name === 'mobile') {
     await page.locator('.mobile-menu').click();
     await expect(page.locator('#sidebar')).not.toHaveAttribute('inert', '');

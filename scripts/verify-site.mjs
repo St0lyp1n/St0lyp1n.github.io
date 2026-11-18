@@ -53,9 +53,7 @@ for (const file of html) {
   }
 }
 const index = JSON.parse(readFileSync(join(root, 'index.json'), 'utf8'));
-if (!index.some((x) => x.url === '/posts/hello-world/'))
-  errors.push('Original article missing from index');
-if (!index.some((x) => x.kind === 'notes')) errors.push('Notes missing from index');
+if (!Array.isArray(index)) throw new Error('Search index must be an array');
 for (const item of index)
   if (!existsSync(join(root, item.url.split('#')[0], 'index.html')))
     errors.push(`Search result broken: ${item.url}`);
